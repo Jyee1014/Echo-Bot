@@ -82,8 +82,7 @@ def handle_message(event):
                 )
             )
         elif text == '詳情':
-            url = request.url_root + '/static'
-            url = url.replace("http", "https")
+            url = request.url_root.replace("http://", "https://", 1) + 'static'
 
             image_carousel_template = ImageCarouselTemplate(
                 columns=[

@@ -35,6 +35,18 @@ app = Flask(__name__)
 configuration = Configuration(access_token=os.getenv('CHANNEL_ACCESS_TOKEN'))
 line_handler = WebhookHandler(os.getenv('CHANNEL_SECRET'))
 
+
+def get_static_url():
+    """Build a safe https:// base URL for files in the /static folder.
+
+    NOTE: request.url_root already ends with a trailing slash (e.g. 'https://xxx.vercel.app/'),
+    so we just append 'static' (no leading slash) to avoid a double slash.
+    We also only replace 'http://' -> 'https://' (with '://'), so we never
+    accidentally mangle an already-https URL into 'httpss://'.
+    """
+    return request.url_root.replace("http://", "https://", 1) + 'static'
+
+
 @app.route("/callback", methods=['POST'])
 def callback():
     # get X-Line-Signature header value
@@ -53,12 +65,14 @@ def callback():
 
     return 'OK'
 
+
 # 加入好友事件
 @line_handler.add(FollowEvent)
 def handle_follow(event):
     print(f'Got {event.type} event')
 
-# 訊息事件
+
+# 訊息事件 (merged into a single handler)
 @line_handler.add(MessageEvent, message=TextMessageContent)
 def handle_message(event):
     with ApiClient(configuration) as api_client:
@@ -72,41 +86,163 @@ def handle_message(event):
                     messages=[TextMessage(text="這是文字訊息")]
                 )
             )
+
         elif text == '位置':
             line_bot_api.reply_message(
                 ReplyMessageRequest(
                     reply_token=event.reply_token,
                     messages=[
-                        LocationMessage(title='Location', address="YiLan", latitude=24.781609811337216, longitude=121.76645135904401)
+                        LocationMessage(
+                            title='Location',
+                            address="YiLan",
+                            latitude=24.781609811337216,
+                            longitude=121.76645135904401
+                        )
                     ]
                 )
             )
+
         elif text == '詳情':
-            url = request.url_root.replace("http://", "https://", 1) + 'static'
+            url = get_static_url()
 
             image_carousel_template = ImageCarouselTemplate(
                 columns=[
                     ImageCarouselColumn(
                         image_url=url + '/logo.png',
-                        action=PostbackAction(label='我們的服務', data='action=service')
+                        action=PostbackAction(
+                            label='我們的服務',
+                            data='action=service'
+                        )
                     ),
                     ImageCarouselColumn(
                         image_url=url + '/logo.png',
-                        action=PostbackAction(label='房間類型', data='action=room')
+                        action=PostbackAction(
+                            label='房間類型',
+                            data='action=room'
+                        )
                     ),
                     ImageCarouselColumn(
                         image_url=url + '/logo.png',
-                        action=PostbackAction(label='測試測試', data='action=test')
+                        action=PostbackAction(
+                            label='測試測試',
+                            data='action=test'
+                        )
                     ),
                 ]
+            )
+
+            image_carousel_message = TemplateMessage(
+                alt_text='滾輪選項',
+                template=image_carousel_template
             )
 
             line_bot_api.reply_message(
                 ReplyMessageRequest(
                     reply_token=event.reply_token,
-                    messages=[TemplateMessage(alt_text='滾輪選項', template=image_carousel_template)]
+                    messages=[image_carousel_message]
                 )
             )
-            
+
+
+# Postback
+@line_handler.add(PostbackEvent)
+def handle_postback(event):
+    data = event.postback.data
+
+    with ApiClient(configuration) as api_client:
+        line_bot_api = MessagingApi(api_client)
+        url = get_static_url()
+
+        # 第一層：點擊「我們的服務」 -> 彈出第二層圖片選單
+        if data == 'action=service':
+            sub_service_template = ImageCarouselTemplate(
+                columns=[
+                    ImageCarouselColumn(
+                        image_url=url + '/service_a.png',
+                        action=PostbackAction(
+                            label='服務A',
+                            data='action=service_a'
+                        )
+                    ),
+                    ImageCarouselColumn(
+                        image_url=url + '/service_b.png',
+                        action=PostbackAction(
+                            label='服務B',
+                            data='action=service_b'
+                        )
+                    ),
+                    ImageCarouselColumn(
+                        image_url=url + '/service_c.png',
+                        action=PostbackAction(
+                            label='服務C',
+                            data='action=service_c'
+                        )
+                    ),
+                ]
+            )
+            line_bot_api.reply_message(
+                ReplyMessageRequest(
+                    reply_token=event.reply_token,
+                    messages=[
+                        TemplateMessage(
+                            alt_text='服務選項',
+                            template=sub_service_template
+                        )
+                    ]
+                )
+            )
+
+        # 服務子選單中點擊的結果
+        elif data == 'action=service_a':
+            line_bot_api.reply_message(
+                ReplyMessageRequest(
+                    reply_token=event.reply_token,
+                    messages=[TextMessage(text="這是服務A的詳細介紹")]
+                )
+            )
+
+        elif data == 'action=service_b':
+            line_bot_api.reply_message(
+                ReplyMessageRequest(
+                    reply_token=event.reply_token,
+                    messages=[TextMessage(text="這是服務B的詳細介紹")]
+                )
+            )
+
+        elif data == 'action=service_c':
+            line_bot_api.reply_message(
+                ReplyMessageRequest(
+                    reply_token=event.reply_token,
+                    messages=[TextMessage(text="這是服務C的詳細介紹")]
+                )
+            )
+
+        elif data == 'action=room':
+            line_bot_api.reply_message(
+                ReplyMessageRequest(
+                    reply_token=event.reply_token,
+                    messages=[
+                        ImageMessage(
+                            original_content_url=url + '/room.png',
+                            preview_image_url=url + '/room.png'
+                        )
+                    ]
+                )
+            )
+
+        elif data == 'action=test':
+            line_bot_api.reply_message(
+                ReplyMessageRequest(
+                    reply_token=event.reply_token,
+                    messages=[
+                        ImageMessage(
+                            original_content_url=url + '/logo.png',
+                            preview_image_url=url + '/logo.png'
+                        )
+                    ]
+                )
+            )
+
+
 if __name__ == "__main__":
     app.run()

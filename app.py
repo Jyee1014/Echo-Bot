@@ -81,102 +81,33 @@ def handle_message(event):
                     ]
                 )
             )
-
-@line_handler.add(MessageEvent, message=TextMessageContent)
-def handle_message(event):
-    text = event.message.text
-    
-    with ApiClient(configuration) as api_client:
-        line_bot_api = MessagingApi(api_client)
-        
-        if text == '詳情':
+        elif text == '詳情':
             url = request.url_root + '/static'
             url = url.replace("http", "https")
-            
+
             image_carousel_template = ImageCarouselTemplate(
                 columns=[
                     ImageCarouselColumn(
                         image_url=url + '/logo.png',
-                        action=PostbackAction( 
-                            label='我們的服務',
-                            data='action=service'
-                        )
+                        action=PostbackAction(label='我們的服務', data='action=service')
                     ),
                     ImageCarouselColumn(
                         image_url=url + '/logo.png',
-                        action=PostbackAction(
-                            label='房間類型',
-                            data='action=room'
-                        )
+                        action=PostbackAction(label='房間類型', data='action=room')
                     ),
                     ImageCarouselColumn(
                         image_url=url + '/logo.png',
-                        action=PostbackAction(
-                            label='測試測試',
-                            data='action=test'
-                        )
+                        action=PostbackAction(label='測試測試', data='action=test')
                     ),
                 ]
             )
 
-            image_carousel_message = TemplateMessage(
-                alt_text='滾輪選項',
-                template=image_carousel_template
-            )
-
             line_bot_api.reply_message(
                 ReplyMessageRequest(
                     reply_token=event.reply_token,
-                    messages=[image_carousel_message]
+                    messages=[TemplateMessage(alt_text='滾輪選項', template=image_carousel_template)]
                 )
             )
-
-# Handle postback events
-@line_handler.add(PostbackEvent)
-def handle_postback(event):
-    data = event.postback.data
-    
-    with ApiClient(configuration) as api_client:
-        line_bot_api = MessagingApi(api_client)
-        url = request.url_root + '/static'
-        url = url.replace("http", "https")
-        
-        if data == 'action=service':
-            line_bot_api.reply_message(
-                ReplyMessageRequest(
-                    reply_token=event.reply_token,
-                    messages=[
-                        ImageMessage(
-                            original_content_url=url + '/service.png',
-                            preview_image_url=url + '/service.png'
-                        )
-                    ]
-                )
-            )
-        elif data == 'action=room':
-            line_bot_api.reply_message(
-                ReplyMessageRequest(
-                    reply_token=event.reply_token,
-                    messages=[
-                        ImageMessage(
-                            original_content_url=url + '/room.png',
-                            preview_image_url=url + '/room.png'
-                        )
-                    ]
-                )
-            )
-        elif data == 'action=test':
-            line_bot_api.reply_message(
-                ReplyMessageRequest(
-                    reply_token=event.reply_token,
-                    messages=[
-                        ImageMessage(
-                            original_content_url=url + '/logo.png',
-                            preview_image_url=url + '/logo.png'
-                        )
-                    ]
-                )
-            )
-
+            
 if __name__ == "__main__":
     app.run()

@@ -107,25 +107,27 @@ def handle_message(event):
 
             image_carousel_template = ImageCarouselTemplate(
                 columns=[
+                    # 關於我們-選項
                     ImageCarouselColumn(
-                        image_url=url + '/logo.png',
+                        image_url=url + '/about-us.png',
                         action=PostbackAction(
-                            label='我們的服務',
-                            data='action=service'
+                            label='品牌介紹',
+                            data='action=about-us'
                         )
                     ),
+                    # 房型介紹-選項
                     ImageCarouselColumn(
-                        image_url=url + '/logo.png',
+                        image_url=url + '/room-type.png',
                         action=PostbackAction(
-                            label='房間類型',
+                            label='房型介紹',
                             data='action=room'
                         )
                     ),
                     ImageCarouselColumn(
-                        image_url=url + '/logo.png',
+                        image_url=url + '/check-in-guide.png',
                         action=PostbackAction(
-                            label='測試測試',
-                            data='action=test'
+                            label='入住須知',
+                            data='action=service'
                         )
                     ),
                 ]
@@ -192,6 +194,34 @@ def handle_postback(event):
                 )
             )
 
+        # 關於我們-圖片詳細
+        elif data == 'action=about-us':
+            line_bot_api.reply_message(
+                ReplyMessageRequest(
+                    reply_token=event.reply_token,
+                    messages=[
+                        ImageMessage(
+                            original_content_url=url + '/detail-about-us.png',
+                            preview_image_url=url + '/detail-about-us.png'
+                        )
+                    ]
+                )
+            )
+        
+        # 房間類型-圖片詳情
+        elif data == 'action=room':
+            line_bot_api.reply_message(
+                ReplyMessageRequest(
+                    reply_token=event.reply_token,
+                    messages=[
+                        ImageMessage(
+                            original_content_url=url + '/room-details.png',
+                            preview_image_url=url + '/room-details.png'
+                        )
+                    ]
+                )
+            )
+
         # 服務子選單中點擊的結果
         elif data == 'action=service_a':
             line_bot_api.reply_message(
@@ -214,32 +244,6 @@ def handle_postback(event):
                 ReplyMessageRequest(
                     reply_token=event.reply_token,
                     messages=[TextMessage(text="這是服務C的詳細介紹")]
-                )
-            )
-
-        elif data == 'action=room':
-            line_bot_api.reply_message(
-                ReplyMessageRequest(
-                    reply_token=event.reply_token,
-                    messages=[
-                        ImageMessage(
-                            original_content_url=url + '/room.png',
-                            preview_image_url=url + '/room.png'
-                        )
-                    ]
-                )
-            )
-
-        elif data == 'action=test':
-            line_bot_api.reply_message(
-                ReplyMessageRequest(
-                    reply_token=event.reply_token,
-                    messages=[
-                        ImageMessage(
-                            original_content_url=url + '/logo.png',
-                            preview_image_url=url + '/logo.png'
-                        )
-                    ]
                 )
             )
 

@@ -215,8 +215,8 @@ def handle_postback(event):
                     reply_token=event.reply_token,
                     messages=[
                         ImageMessage(
-                            original_content_url=url + '/room-details.png',
-                            preview_image_url=url + '/room-details.png'
+                            original_content_url=url + '/room-details.jpg',
+                            preview_image_url=url + '/room-details.jpg'
                         )
                     ]
                 )

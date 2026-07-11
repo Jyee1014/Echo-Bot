@@ -186,22 +186,22 @@ def handle_message(event):
         # Rich menu actions
         # -------------------------------------------------------------
 
-        # 線上訂房
+        # 線上訂房 缺链接就完成
         elif text == '線上訂房':
             line_bot_api.reply_message(
                 ReplyMessageRequest(
                     reply_token=event.reply_token,
                     messages=[
                         ImageMessage(
-                            original_content_url=url + '/booking-price.png',
-                            preview_image_url=url + '/booking-price.png'
+                            original_content_url=url + '/booking-price.jpg',
+                            preview_image_url=url + '/booking-price.jpg'
                         ),
                         TextMessage(text="歡迎預約入住！請透過以下連結完成線上訂房：#訂房鏈接")
                     ]
                 )
             )
 
-        # 客房導覽
+        # 客房導覽 待确认
         elif text == '客房導覽':
             room_tour_template = ImageCarouselTemplate(
                 columns=[
@@ -226,7 +226,7 @@ def handle_message(event):
                 )
             )
 
-        # 餐飲|環境介紹
+        # 餐飲|環境介紹 
         elif text == '餐飲|環境介紹':
             dining_env_template = ImageCarouselTemplate(
                 columns=[
@@ -235,7 +235,7 @@ def handle_message(event):
                         action=PostbackAction(label='餐飲', data='action=dining')
                     ),
                     ImageCarouselColumn(
-                        image_url=url + '/environment.png',
+                        image_url=url + '/environment-bigpic.png',
                         action=PostbackAction(label='環境介紹', data='action=environment')
                     ),
                 ]
@@ -247,7 +247,7 @@ def handle_message(event):
                 )
             )
 
-        # 入住須知
+        # 入住須知 完成
         elif text == '入住須知':
             checkin_template = ImageCarouselTemplate(
                 columns=[
@@ -272,7 +272,7 @@ def handle_message(event):
                 )
             )
 
-        # 交通|周邊景點
+        # 交通|周邊景點 待确认
         elif text == '交通|周邊景點':
             transport_template = ImageCarouselTemplate(
                 columns=[
@@ -359,24 +359,48 @@ def handle_postback(event):
                 )
             )
         elif data == 'action=environment':
+            environment_carousel_template = ImageCarouselTemplate(
+                columns=[
+                    ImageCarouselColumn(
+                        image_url=url + '/environment-pic1.png',
+                        action=PostbackAction(label='悠然自得', data='action=noop', display_text=' ')
+                    ),
+                    ImageCarouselColumn(
+                        image_url=url + '/environment-pic2.png',
+                        action=PostbackAction(label='館內泳池', data='action=noop', display_text=' ')
+                    ),
+                    ImageCarouselColumn(
+                        image_url=url + '/environment-pic3.png',
+                        action=PostbackAction(label='停車場地', data='action=noop', display_text=' ')
+                    ),
+                    ImageCarouselColumn(
+                        image_url=url + '/environment-pic4.png',
+                        action=PostbackAction(label='一樓大廳', data='action=noop', display_text=' ')
+                    ),
+                    ImageCarouselColumn(
+                        image_url=url + '/environment-pic5.png',
+                        action=PostbackAction(label='二樓交誼庭', data='action=noop', display_text=' ')
+                    ),
+                ]
+            )
+            line_bot_api.reply_message(
+                ReplyMessageRequest(
+                    reply_token=event.reply_token,
+                    messages=[TemplateMessage(alt_text='環境介紹', template=environment_carousel_template)]
+                )
+            )
+
+        # ---- 入住須知 子選項 ---- 完成
+        elif data == 'action=facility':
             line_bot_api.reply_message(
                 ReplyMessageRequest(
                     reply_token=event.reply_token,
                     messages=[
                         ImageMessage(
-                            original_content_url=url + '/environment-detail.png',
-                            preview_image_url=url + '/environment-detail.png'
+                            original_content_url=url + '/detail-facility.png',
+                            preview_image_url=url + '//detail-facility.png'
                         )
                     ]
-                )
-            )
-
-        # ---- 入住須知 子選項 ----
-        elif data == 'action=facility':
-            line_bot_api.reply_message(
-                ReplyMessageRequest(
-                    reply_token=event.reply_token,
-                    messages=[TextMessage(text="這是設施的詳細介紹")]
                 )
             )
         

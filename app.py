@@ -256,7 +256,7 @@ def handle_message(event):
                         action=PostbackAction(label='設施', data='action=facility')
                     ),
                     ImageCarouselColumn(
-                        image_url=url + '/detail-check-in-guide.png',
+                        image_url=url + '/check-in-guide.png',
                         action=PostbackAction(label='入住須知', data='action=detail-checkin')
                     ),
                     ImageCarouselColumn(

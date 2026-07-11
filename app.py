@@ -88,15 +88,15 @@ def create_rich_menu():
         body = {
             "size": {"width": 2500, "height": 1686},
             "selected": True,
-            "name": "圖文選單 1",
-            "chatBarText": "查看更多資訊",
+            "name": "導覽",
+            "chatBarText": "導覽",
             "areas": [
                 {
-                    "bounds": {"x": 121, "y": 45, "width": 600, "height": 200},
+                    "bounds": {"x": 33, "y": 67, "width": 600, "height": 200},
                     "action": {"type": "message", "text": "線上訂房"}
                 },
                 {
-                    "bounds": {"x": 1790, "y": 50, "width": 600, "height": 200},
+                    "bounds": {"x": 1808, "y": 63, "width": 600, "height": 200},
                     "action": {"type": "message", "text": "客房導覽"}
                 },
                 {
@@ -123,7 +123,7 @@ def create_rich_menu():
         print(response)
         rich_menu_id = response["richMenuId"]
 
-        with open('static/richmenu-1.jpg', 'rb') as image:
+        with open('static/navigation_menu.png', 'rb') as image:
             line_bot_blob_api.set_rich_menu_image(
                 rich_menu_id=rich_menu_id,
                 body=bytearray(image.read()),
@@ -256,11 +256,11 @@ def handle_message(event):
                         action=PostbackAction(label='設施', data='action=facility')
                     ),
                     ImageCarouselColumn(
-                        image_url=url + '/pet-friendly.png',
+                        image_url=url + '/detail-check-in-guide.png',
                         action=PostbackAction(label='入住須知', data='action=detail-checkin')
                     ),
                     ImageCarouselColumn(
-                        image_url=url + '/crib.png',
+                        image_url=url + '/pets.png',
                         action=PostbackAction(label='寵物入住須知', data='action=detail-pets')
                     ),
                 ]
@@ -393,7 +393,7 @@ def handle_postback(event):
                 )
             )
         
-        elif data == 'action=detail-detail-pets':
+        elif data == 'action=detail-pets':
             line_bot_api.reply_message(
                 ReplyMessageRequest(
                     reply_token=event.reply_token,

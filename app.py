@@ -235,7 +235,7 @@ def handle_message(event):
                         action=PostbackAction(label='餐飲', data='action=dining')
                     ),
                     ImageCarouselColumn(
-                        image_url=url + '/environment-bigpic.png',
+                        image_url=url + '/environment-bigpic.jpg',
                         action=PostbackAction(label='環境介紹', data='action=environment')
                     ),
                 ]

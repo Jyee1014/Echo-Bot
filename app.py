@@ -21,11 +21,21 @@ from linebot.v3.messaging import (
     ImageCarouselTemplate,
     ImageCarouselColumn,
     URIAction,
-    RichMenuSize,   # Rich的都是導覽
+    MessageAction,
+    # Rich的都是導覽
+    RichMenuSize,
     RichMenuRequest,
     RichMenuArea,
     RichMenuBounds,
-    MessageAction
+    # Flex的都是導覽
+    FlexMessage,
+    FlexContainer,
+    FlexCarousel,
+    FlexBubble,
+    FlexImage,
+    FlexBox,
+    FlexText,
+    FlexIcon
 )
 from linebot.v3.webhooks import (
     MessageEvent,
@@ -249,28 +259,24 @@ def handle_message(event):
                 )
             )
 
-        # 交通|周邊景點 待确认
+        # 交通|周邊景點 完成
         elif text == '位置|周邊景點':
-            transport_template = ImageCarouselTemplate(
+            location_template = ImageCarouselTemplate(
                 columns=[
                     ImageCarouselColumn(
-                        image_url=url + '/transfer.png',
+                        image_url=url + '/location-bigpic.png',
                         action=PostbackAction(label='位置', data='action=location')
                     ),
                     ImageCarouselColumn(
-                        image_url=url + '/turtle-island.png',
-                        action=PostbackAction(label='龜山島', data='action=turtle_island')
-                    ),
-                    ImageCarouselColumn(
-                        image_url=url + '/old-street.png',
-                        action=PostbackAction(label='老街', data='action=old_street')
+                        image_url=url + '/attraction-bigpic.png',
+                        action=PostbackAction(label='周邊景點', data='action=attractions')
                     ),
                 ]
             )
             line_bot_api.reply_message(
                 ReplyMessageRequest(
                     reply_token=event.reply_token,
-                    messages=[TemplateMessage(alt_text='位置周邊景點', template=transport_template)]
+                    messages=[TemplateMessage(alt_text='位置周邊景點', template=location_template)]
                 )
             )
 
@@ -494,7 +500,7 @@ def handle_postback(event):
                 )
             )
 
-        # ---- 交通|周邊景點 子選項 ----
+        # ---- 交通|周邊景點 子選項 ---- 完成
         elif data == 'action=location':
             line_bot_api.reply_message(
                 ReplyMessageRequest(
@@ -509,18 +515,16 @@ def handle_postback(event):
                     ]
                 )
             )
-        elif data == 'action=turtle_island':
+        elif data == 'action=attractions':
             line_bot_api.reply_message(
                 ReplyMessageRequest(
                     reply_token=event.reply_token,
-                    messages=[TextMessage(text="這是接送服務的詳細介紹")]
-                )
-            )
-        elif data == 'action=old_street':
-            line_bot_api.reply_message(
-                ReplyMessageRequest(
-                    reply_token=event.reply_token,
-                    messages=[TextMessage(text="這是接送服務的詳細介紹")]
+                    messages=[
+                        ImageMessage(
+                            original_content_url=url + '/detail-attraction.png',
+                            preview_image_url=url + '/detail-attraction.png'
+                        )
+                    ]
                 )
             )
 

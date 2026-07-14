@@ -337,13 +337,13 @@ def handle_postback(event):
                         image_url=url + '/8bq-logo.png',
                         action=PostbackAction(
                             label='| 代訂食材 | 烤友社',
-                            data='action=8bq',
-                            display_text='烤友社')
+                            data='action=eightbq',
+                            display_text='| 代訂食材 | 烤友社')
                     ),
                     ImageCarouselColumn(
-                        image_url=url + '/flameduck-logo.png',
+                        image_url=url + '/flameduck-logo.jpg',
                         action=PostbackAction(
-                            label='| 待定食材 | 烤友社',
+                            label='火焰夯鴨',
                             data='action=flameduck',
                             display_text='火焰夯鴨')
                     )
@@ -358,20 +358,20 @@ def handle_postback(event):
         elif data == 'action=breakfast':
             line_bot_api.reply_message(
                 ReplyMessageRequest(
-                reply_token=event.reply_token,
-                messages=[
-                    ImageMessage(
-                        original_content_url=url + '/detail-breakfast.png',
-                        preview_image_url=url + '/detail-breakfast.png'
-                    ),
-                    TextMessage(text="每天都有不同的早餐驚喜！\n☀️新鮮現做、營養均衡，是一天活力的開始。\n\n"
-                                      "我們每日提供營養均衡的早餐，內容包含主食、蛋白質、時蔬、水果及飲品，"
-                                      "讓您補充一天所需的能量。\n早餐內容每日隨機搭配，依照當日食材與供應情況調整，"
-                                      "每一天都能享受不同的美味與驚喜！")
-                ]
+                    reply_token=event.reply_token,
+                    messages=[
+                        ImageMessage(
+                            original_content_url=url + '/detail-breakfast.png',
+                            preview_image_url=url + '/detail-breakfast.png'
+                        ),
+                        TextMessage(text="每天都有不同的早餐驚喜！\n☀️新鮮現做、營養均衡，是一天活力的開始。\n\n"
+                                          "我們每日提供營養均衡的早餐，內容包含主食、蛋白質、時蔬、水果及飲品，"
+                                          "讓您補充一天所需的能量。\n早餐內容每日隨機搭配，依照當日食材與供應情況調整，"
+                                          "每一天都能享受不同的美味與驚喜！")
+                    ]
                 )
             )
-        elif data == 'action=8bq':
+        elif data == 'action=eightbq':
             line_bot_api.reply_message(
                 ReplyMessageRequest(
                     replytoken=event.reply_token,

@@ -374,7 +374,7 @@ def handle_postback(event):
         elif data == 'action=eightbq':
             line_bot_api.reply_message(
                 ReplyMessageRequest(
-                    replytoken=event.reply_token,
+                    reply_token=event.reply_token,
                     messages=[
                         ImageMessage(
                             original_content_url=url + '/detail-8bq-1.jpg',
@@ -396,7 +396,7 @@ def handle_postback(event):
         elif data == 'action=flameduck':
             line_bot_api.reply_message(
                 ReplyMessageRequest(
-                    replytoken=event.reply_token,
+                    reply_token=event.reply_token,
                     messages=[
                         ImageMessage(
                             original_content_url=url + '/detail-flameduck-1.jpg',

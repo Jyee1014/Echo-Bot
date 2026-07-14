@@ -208,7 +208,7 @@ def handle_message(event):
             dining_env_template = ImageCarouselTemplate(
                 columns=[
                     ImageCarouselColumn(
-                        image_url=url + '/dining.jpg',
+                        image_url=url + '/dining-bigpic.jpg',
                         action=PostbackAction(label='餐飲', data='action=dining')
                     ),
                     ImageCarouselColumn(
@@ -220,7 +220,7 @@ def handle_message(event):
             line_bot_api.reply_message(
                 ReplyMessageRequest(
                     reply_token=event.reply_token,
-                    messages=[TemplateMessage(alt_text='餐飲|環境介紹', template=dining_env_template)]
+                    messages=[TemplateMessage(alt_text='餐飲環境介紹', template=dining_env_template)]
                 )
             )
 
@@ -270,7 +270,7 @@ def handle_message(event):
             line_bot_api.reply_message(
                 ReplyMessageRequest(
                     reply_token=event.reply_token,
-                    messages=[TemplateMessage(alt_text='位置|周邊景點', template=transport_template)]
+                    messages=[TemplateMessage(alt_text='位置周邊景點', template=transport_template)]
                 )
             )
 
@@ -349,10 +349,17 @@ def handle_postback(event):
                     )
                 ]
             )
+            line_bot_api.reply_message(
+                ReplyMessageRequest(
+                reply_token=event.reply_token,
+                messages=[TemplateMessage(alt_text='餐飲介紹', template=dining_carousel_template)]
+                )
+            )
         elif data == 'action=breakfast':
             line_bot_api.reply_message(
-                event.reply_token,
-                [
+                ReplyMessageRequest(
+                reply_token=event.reply_token,
+                messages=[
                     ImageMessage(
                         original_content_url=url + '/detail-breakfast.png',
                         preview_image_url=url + '/detail-breakfast.png'
@@ -362,6 +369,7 @@ def handle_postback(event):
                                       "讓您補充一天所需的能量。\n早餐內容每日隨機搭配，依照當日食材與供應情況調整，"
                                       "每一天都能享受不同的美味與驚喜！")
                 ]
+                )
             )
         elif data == 'action=8bq':
             line_bot_api.reply_message(

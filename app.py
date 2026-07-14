@@ -203,8 +203,8 @@ def handle_message(event):
                 )
             )
 
-        # 餐飲|環境介紹 餐飲未完成 環境完成
-        elif text == '餐飲|環境介紹':
+        # 餐飲|環境介紹 完成
+        elif text == '餐飲 | 環境介紹':
             dining_env_template = ImageCarouselTemplate(
                 columns=[
                     ImageCarouselColumn(
@@ -250,7 +250,7 @@ def handle_message(event):
             )
 
         # 交通|周邊景點 待确认
-        elif text == '位置|周邊景點':
+        elif text == '位置 | 周邊景點':
             transport_template = ImageCarouselTemplate(
                 columns=[
                     ImageCarouselColumn(
@@ -270,7 +270,7 @@ def handle_message(event):
             line_bot_api.reply_message(
                 ReplyMessageRequest(
                     reply_token=event.reply_token,
-                    messages=[TemplateMessage(alt_text='交通周邊景點', template=transport_template)]
+                    messages=[TemplateMessage(alt_text='位置周邊景點', template=transport_template)]
                 )
             )
 

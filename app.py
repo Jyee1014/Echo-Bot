@@ -324,7 +324,7 @@ def handle_postback(event):
 
         # ---- 餐飲|環境介紹 子選項 ----
         elif data == 'action=dining':
-            environment_carousel_template = ImageCarouselTemplate(
+            dining_carousel_template = ImageCarouselTemplate(
                 columns=[
                     ImageCarouselColumn(
                         image_url=url + '/breakfast.jpg',

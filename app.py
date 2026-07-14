@@ -84,7 +84,7 @@ def create_rich_menu():
         # Adjust these bounds to match your actual rich menu artwork's layout.
         # Size below assumes a 2500x1686 image with two wide buttons on top
         # (線上訂房 / 客房導覽) and three boxes along the bottom
-        # (餐飲|環境介紹 / 入住須知 / 交通|周邊景點).
+        # (餐飲|環境介紹 / 入住須知 / 位置|周邊景點).
         body = {
             "size": {"width": 2500, "height": 1686},
             "selected": True,
@@ -109,7 +109,7 @@ def create_rich_menu():
                 },
                 {
                     "bounds": {"x": 1660, "y": 846, "width": 870, "height": 769},
-                    "action": {"type": "message", "text": "交通|周邊景點"}
+                    "action": {"type": "message", "text": "位置|周邊景點"}
                 },
             ]
         }

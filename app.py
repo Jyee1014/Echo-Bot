@@ -183,7 +183,11 @@ def handle_message(event):
                             original_content_url=url + '/booking-price.jpg',
                             preview_image_url=url + '/booking-price.jpg'
                         ),
-                        TextMessage(text="歡迎預約入住！請透過以下連結完成線上訂房：https://www.booking-owlnest.com/chancevilla?lang=zh_TW&adult=1&child=0&infant=0")
+                        TextMessage(text="📞 0986-040-310\n"
+                                         "✉️ chancevilla262@gmail.com\n"
+                                         "📍 宜蘭縣礁溪鄉武暖路45-5號\n\n"
+                                         "春秧綠、夏荷香、秋稻浪、冬暖陽——四時蒔裳，皆有秝景。🌾\n"
+                                         "歡迎信息我們，預約入住！")
                     ]
                 )
             )

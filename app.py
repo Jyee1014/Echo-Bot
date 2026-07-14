@@ -92,7 +92,7 @@ def create_rich_menu():
             "chatBarText": "導覽",
             "areas": [
                 {
-                    "bounds": {"x": 33, "y": 67, "width": 600, "height": 200},
+                    "bounds": {"x": 67, "y": 67, "width": 600, "height": 200},
                     "action": {"type": "message", "text": "線上訂房"}
                 },
                 {
@@ -159,35 +159,12 @@ def handle_message(event):
         text = event.message.text
         url = get_static_url()
 
-        if text == '文字':
-            line_bot_api.reply_message(
-                ReplyMessageRequest(
-                    reply_token=event.reply_token,
-                    messages=[TextMessage(text="這是文字訊息")]
-                )
-            )
-
-        elif text == '位置':
-            line_bot_api.reply_message(
-                ReplyMessageRequest(
-                    reply_token=event.reply_token,
-                    messages=[
-                        LocationMessage(
-                            title='Location',
-                            address="YiLan",
-                            latitude=24.781609811337216,
-                            longitude=121.76645135904401
-                        )
-                    ]
-                )
-            )
-
         # -------------------------------------------------------------
         # Rich menu actions
         # -------------------------------------------------------------
 
-        # 線上訂房 缺链接就完成
-        elif text == '線上訂房':
+        # 線上訂房 完成
+        if text == '線上訂房':
             line_bot_api.reply_message(
                 ReplyMessageRequest(
                     reply_token=event.reply_token,
@@ -196,7 +173,7 @@ def handle_message(event):
                             original_content_url=url + '/booking-price.jpg',
                             preview_image_url=url + '/booking-price.jpg'
                         ),
-                        TextMessage(text="歡迎預約入住！請透過以下連結完成線上訂房：#訂房鏈接")
+                        TextMessage(text="歡迎預約入住！請透過以下連結完成線上訂房：https://www.booking-owlnest.com/chancevilla?lang=zh_TW&adult=1&child=0&infant=0")
                     ]
                 )
             )
@@ -226,12 +203,12 @@ def handle_message(event):
                 )
             )
 
-        # 餐飲|環境介紹 
+        # 餐飲|環境介紹 餐飲未完成 環境完成
         elif text == '餐飲|環境介紹':
             dining_env_template = ImageCarouselTemplate(
                 columns=[
                     ImageCarouselColumn(
-                        image_url=url + '/dining.png',
+                        image_url=url + '/dining.jpg',
                         action=PostbackAction(label='餐飲', data='action=dining')
                     ),
                     ImageCarouselColumn(
@@ -273,12 +250,12 @@ def handle_message(event):
             )
 
         # 交通|周邊景點 待确认
-        elif text == '交通|周邊景點':
+        elif text == '位置|周邊景點':
             transport_template = ImageCarouselTemplate(
                 columns=[
                     ImageCarouselColumn(
                         image_url=url + '/transfer.png',
-                        action=PostbackAction(label='接送', data='action=transfer')
+                        action=PostbackAction(label='位置', data='action=location')
                     ),
                     ImageCarouselColumn(
                         image_url=url + '/turtle-island.png',
@@ -347,17 +324,96 @@ def handle_postback(event):
 
         # ---- 餐飲|環境介紹 子選項 ----
         elif data == 'action=dining':
+            environment_carousel_template = ImageCarouselTemplate(
+                columns=[
+                    ImageCarouselColumn(
+                        image_url=url + '/breakfast.jpg',
+                        action=PostbackAction(
+                            label='早餐',
+                            data='action=breakfast',
+                            display_text='早餐')
+                    ),
+                    ImageCarouselColumn(
+                        image_url=url + '/8bq-logo.png',
+                        action=PostbackAction(
+                            label='| 代訂食材 | 烤友社',
+                            data='action=8bq',
+                            display_text='烤友社')
+                    ),
+                    ImageCarouselColumn(
+                        image_url=url + '/flameduck-logo.png',
+                        action=PostbackAction(
+                            label='| 待定食材 | 烤友社',
+                            data='action=flameduck',
+                            display_text='火焰夯鴨')
+                    )
+                ]
+            )
+        elif data == 'action=breakfast':
+            line_bot_api.reply_message(
+                event.reply_token,
+                [
+                    ImageMessage(
+                        original_content_url=url + '/detail-breakfast.png',
+                        preview_image_url=url + '/detail-breakfast.png'
+                    ),
+                    TextMessage(text="每天都有不同的早餐驚喜！\n☀️新鮮現做、營養均衡，是一天活力的開始。\n\n"
+                                      "我們每日提供營養均衡的早餐，內容包含主食、蛋白質、時蔬、水果及飲品，"
+                                      "讓您補充一天所需的能量。\n早餐內容每日隨機搭配，依照當日食材與供應情況調整，"
+                                      "每一天都能享受不同的美味與驚喜！")
+                ]
+            )
+        elif data == 'action=8bq':
             line_bot_api.reply_message(
                 ReplyMessageRequest(
-                    reply_token=event.reply_token,
+                    replytoken=event.reply_token,
                     messages=[
                         ImageMessage(
-                            original_content_url=url + '/dining-detail.png',
-                            preview_image_url=url + '/dining-detail.png'
+                            original_content_url=url + '/detail-8bq-1.jpg',
+                            preview_image_url=url + '/detail-8bq-1.jpg'
+                        ),
+                        ImageMessage(
+                            original_content_url=url + '/detail-8bq-2.jpg',
+                            preview_image_url=url + '/detail-8bq-2.jpg'
+                        ),
+                        TextMessage(text="🍖 烤友社｜代訂食材服務"
+                                          "\n\n想輕鬆享受烤肉時光嗎？\n如需代訂烤肉食材，請於入住前 7 天與客服聯繫並完成預訂。"
+                                          "\n\n🔥 烤肉設備\n提供 1 台美式烤肉架\n僅提供烤肉盤，其餘耗材（如木炭、夾子、烤網、鋁箔紙、紙盤、餐具等）請自行準備。\n若使用代訂食材服務，代訂廠商將提供基本耗材\n使用烤肉場地將酌收 清潔費 NT$2,000。"
+                                          "\n\n🍲 火鍋設備\n交誼廳提供 瓦斯爐供使用。\n使用火鍋設備不另收清潔費。"
+                                          "\n\n💬 如有任何疑問或代訂需求，歡迎提前與客服聯繫，我們將竭誠為您服務！"
                         )
                     ]
                 )
             )
+        elif data == 'action=flameduck':
+            line_bot_api.reply_message(
+                ReplyMessageRequest(
+                    replytoken=event.reply_token,
+                    messages=[
+                        ImageMessage(
+                            original_content_url=url + '/detail-flameduck-1.jpg',
+                            preview_image_url=url + '/detail-flameduck-1.jpg'
+                        ),
+                        ImageMessage(
+                            original_content_url=url + '/detail-flameduck-2.jpg',
+                            preview_image_url=url + '/detail-flameduck-2.jpg'
+                        ),
+                        ImageMessage(
+                            original_content_url=url + '/detail-flameduck-3.jpg',
+                            preview_image_url=url + '/detail-flameduck-3.jpg'
+                        ),
+                        ImageMessage(
+                            original_content_url=url + '/detail-flameduck-4.jpg',
+                            preview_image_url=url + '/detail-flameduck-4.jpg'
+                        ),
+                        ImageMessage(
+                            original_content_url=url + '/detail-flameduck-5.jpg',
+                            preview_image_url=url + '/detail-flameduck-5.jpg'
+                        ),
+                    ]
+                )
+            )
+    
         elif data == 'action=environment':
             environment_carousel_template = ImageCarouselTemplate(
                 columns=[
@@ -431,11 +487,18 @@ def handle_postback(event):
             )
 
         # ---- 交通|周邊景點 子選項 ----
-        elif data == 'action=transfer':
+        elif data == 'action=location':
             line_bot_api.reply_message(
                 ReplyMessageRequest(
                     reply_token=event.reply_token,
-                    messages=[TextMessage(text="這是接送服務的詳細介紹")]
+                    messages=[
+                        LocationMessage(
+                            title='Location',
+                            address="YiLan",
+                            latitude=24.781609811337216,
+                            longitude=121.76645135904401
+                        )
+                    ]
                 )
             )
         elif data == 'action=turtle_island':

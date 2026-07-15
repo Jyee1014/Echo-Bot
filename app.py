@@ -197,16 +197,16 @@ def handle_message(event):
             room_tour_template = ImageCarouselTemplate(
                 columns=[
                     ImageCarouselColumn(
-                        image_url=url + '/room-a.png',
-                        action=PostbackAction(label='房型A', data='action=room_a')
+                        image_url=url + '/room-twin.jpg',
+                        action=PostbackAction(label='雙人房', data='action=room_twin')
                     ),
                     ImageCarouselColumn(
-                        image_url=url + '/room-b.png',
-                        action=PostbackAction(label='房型B', data='action=room_b')
+                        image_url=url + '/room-four.jpg',
+                        action=PostbackAction(label='四人房', data='action=room_four')
                     ),
                     ImageCarouselColumn(
-                        image_url=url + '/room-c.png',
-                        action=PostbackAction(label='房型C', data='action=room_c')
+                        image_url=url + '/room-family.jpg',
+                        action=PostbackAction(label='親子房', data='action=room_family')
                     ),
                 ]
             )
@@ -295,39 +295,45 @@ def handle_postback(event):
         url = get_static_url()
 
         # ---- 客房導覽 子選項 ----
-        if data == 'action=room_a':
+        if data == 'action=room_twin':
             line_bot_api.reply_message(
                 ReplyMessageRequest(
                     reply_token=event.reply_token,
                     messages=[
                         ImageMessage(
-                            original_content_url=url + '/room-a-detail.png',
-                            preview_image_url=url + '/room-a-detail.png'
-                        )
+                            original_content_url=url + '/detail-room-twin.jpg',
+                            preview_image_url=url + '/detail-room-twin.jpg'
+                        ),
+                        TextMessage(text="雙人房選用1張Queen Size雙人床，帶給您一夜好眠。\n"
+                                         "各項房內設備、備品及住宿須知，已完整整理於下方導覽選單的「入住須知」中，歡迎隨時點閱。")
                     ]
                 )
             )
-        elif data == 'action=room_b':
+        elif data == 'action=room_four':
             line_bot_api.reply_message(
                 ReplyMessageRequest(
                     reply_token=event.reply_token,
                     messages=[
                         ImageMessage(
-                            original_content_url=url + '/room-b-detail.png',
-                            preview_image_url=url + '/room-b-detail.png'
-                        )
+                            original_content_url=url + '/detail-room-four.jpg',
+                            preview_image_url=url + '/detail-room-four.jpg'
+                        ),
+                        TextMessage(text="四人房選用2張Queen Size雙人床，帶給您一夜好眠。\n"
+                                         "各項房內設備、備品及住宿須知，已完整整理於下方導覽選單的「入住須知」中，歡迎隨時點閱。")
                     ]
                 )
             )
-        elif data == 'action=room_c':
+        elif data == 'action=room_family':
             line_bot_api.reply_message(
                 ReplyMessageRequest(
                     reply_token=event.reply_token,
                     messages=[
                         ImageMessage(
-                            original_content_url=url + '/room-c-detail.png',
-                            preview_image_url=url + '/room-c-detail.png'
-                        )
+                            original_content_url=url + '/detail-room-family.jpg',
+                            preview_image_url=url + '/detail-room-family.jpg'
+                        ),
+                        TextMessage(text="親子房選用2張Queen Size雙人床和1張兒童單人床，帶給您一夜好眠。\n"
+                                         "各項房內設備、備品及住宿須知，已完整整理於下方導覽選單的「入住須知」中，歡迎隨時點閱。")
                     ]
                 )
             )
@@ -511,8 +517,8 @@ def handle_postback(event):
                     reply_token=event.reply_token,
                     messages=[
                         LocationMessage(
-                            title='Location',
-                            address="YiLan",
+                            title='蒔裳秝景',
+                            address="26245宜蘭縣礁溪鄉武暖路45-5號",
                             latitude=24.781609811337216,
                             longitude=121.76645135904401
                         )

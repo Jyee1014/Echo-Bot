@@ -318,8 +318,8 @@ def handle_postback(event):
                             original_content_url=url + '/detail-room-four.jpg',
                             preview_image_url=url + '/detail-room-four.jpg'
                         ),
-                        TextMessage(text="四人房選用2張Queen Size雙人床，帶給您一夜好眠。\n"
-                                         "各項房內設備、備品及住宿須知，已完整整理於下方導覽選單的「入住須知」中，歡迎隨時點閱。")
+                        TextMessage(text="四人房內配置2張舒適的Queen Size雙人床，寬敞空間適合家庭或好友同住。\n"
+                                         "更多房內設施與貼心服務，歡迎點選導覽選單中的「入住須知」詳細查閱。")
                     ]
                 )
             )
@@ -332,8 +332,8 @@ def handle_postback(event):
                             original_content_url=url + '/detail-room-family.jpg',
                             preview_image_url=url + '/detail-room-family.jpg'
                         ),
-                        TextMessage(text="親子房選用2張Queen Size雙人床和1張兒童單人床，帶給您一夜好眠。\n"
-                                         "各項房內設備、備品及住宿須知，已完整整理於下方導覽選單的「入住須知」中，歡迎隨時點閱。")
+                        TextMessage(text="親子房內配置兩張Queen Size雙人床及一張專屬兒童床，貼心設計讓全家出遊更輕鬆。\n"
+                                         "更多房內設施與親子友善服務，歡迎點選導覽選單中的「入住須知」詳細查閱。")
                     ]
                 )
             )

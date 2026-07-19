@@ -444,18 +444,6 @@ def handle_postback(event):
                             original_content_url=url + '/detail-flameduck-3.jpg',
                             preview_image_url=url + '/detail-flameduck-3.jpg'
                         ),
-                        ImageMessage(
-                            original_content_url=url + '/detail-flameduck-4.jpg',
-                            preview_image_url=url + '/detail-flameduck-4.jpg'
-                        ),
-                        ImageMessage(
-                            original_content_url=url + '/detail-flameduck-5.jpg',
-                            preview_image_url=url + '/detail-flameduck-5.jpg'
-                        ),
-                        ImageMessage(
-                            original_content_url=url + '/detail-flameduck-6.jpg',
-                            preview_image_url=url + '/detail-flameduck-6.jpg'
-                        ),
                     ]
                 )
             )

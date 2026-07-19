@@ -341,7 +341,7 @@ def handle_postback(event):
                     ]
                 )
             )
-            elif data == 'action=room_bathroom':
+        elif data == 'action=room_bathroom':
             line_bot_api.reply_message(
                 ReplyMessageRequest(
                     reply_token=event.reply_token,

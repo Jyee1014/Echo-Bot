@@ -210,7 +210,7 @@ def handle_message(event):
                     ),
                     ImageCarouselColumn(
                         image_url=url + '/room-bathroom.jpg',
-                        action=PostbackAction(label='衛浴', data='action=room_family')
+                        action=PostbackAction(label='衛浴', data='action=room_bathroom')
                     ),
                 ]
             )

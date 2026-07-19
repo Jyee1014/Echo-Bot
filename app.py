@@ -208,6 +208,10 @@ def handle_message(event):
                         image_url=url + '/room-family.jpg',
                         action=PostbackAction(label='親子房', data='action=room_family')
                     ),
+                    ImageCarouselColumn(
+                        image_url=url + '/room-bathroom.jpg',
+                        action=PostbackAction(label='衛浴', data='action=room_family')
+                    ),
                 ]
             )
             line_bot_api.reply_message(
@@ -337,6 +341,20 @@ def handle_postback(event):
                     ]
                 )
             )
+            elif data == 'action=room_bathroom':
+            line_bot_api.reply_message(
+                ReplyMessageRequest(
+                    reply_token=event.reply_token,
+                    messages=[
+                        ImageMessage(
+                            original_content_url=url + '/detail-room-bathroom.jpg',
+                            preview_image_url=url + '/detail-room-bathroom.jpg'
+                        ),
+                        TextMessage(text="衛浴空間舒適潔淨，為您提供優質的盥洗體驗。\n"
+                                         "各項衛浴設備、備品內容及環保政策（不主動提供一次性用品），已完整整理於導覽選單的「入住須知」中，歡迎隨時點閱。")
+                    ]
+                )
+            )
 
         # ---- 餐飲|環境介紹 子選項 ----
         elif data == 'action=dining':
@@ -433,6 +451,10 @@ def handle_postback(event):
                         ImageMessage(
                             original_content_url=url + '/detail-flameduck-5.jpg',
                             preview_image_url=url + '/detail-flameduck-5.jpg'
+                        ),
+                        ImageMessage(
+                            original_content_url=url + '/detail-flameduck-6.jpg',
+                            preview_image_url=url + '/detail-flameduck-6.jpg'
                         ),
                     ]
                 )

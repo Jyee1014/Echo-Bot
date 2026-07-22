@@ -175,20 +175,19 @@ def handle_message(event):
 
         # 線上訂房 完成
         if text == '線上訂房':
+            booking_buttons_template = ButtonsTemplate(
+                thumbnail_image_url=url + '/background.jpg',
+                title='線上訂房',
+                text='請選擇您想查看的方案',
+                actions=[
+                    PostbackAction(label='單間價格', data='action=room_price'),
+                    PostbackAction(label='包棟價格', data='action=whole_house_price'),
+                ]
+            )
             line_bot_api.reply_message(
                 ReplyMessageRequest(
                     reply_token=event.reply_token,
-                    messages=[
-                        ImageMessage(
-                            original_content_url=url + '/booking-price.jpg',
-                            preview_image_url=url + '/booking-price.jpg'
-                        ),
-                        TextMessage(text="📞 0986-040-310\n"
-                                         "✉️ chancevilla262@gmail.com\n"
-                                         "📍 宜蘭縣礁溪鄉武暖路45-5號\n\n"
-                                         "春秧綠、夏荷香、秋稻浪、冬暖陽——四時蒔裳，皆有秝景。🌾\n"
-                                         "歡迎信息我們，預約入住！")
-                    ]
+                    messages=[TemplateMessage(alt_text='線上訂房', template=booking_buttons_template)]
                 )
             )
 
@@ -298,8 +297,44 @@ def handle_postback(event):
         line_bot_api = MessagingApi(api_client)
         url = get_static_url()
 
+        if data == 'action=room_price':
+            line_bot_api.reply_message(
+                ReplyMessageRequest(
+                    reply_token=event.reply_token,
+                    messages=[
+                        ImageMessage(
+                            original_content_url=url + '/booking-price-room.jpg',
+                            preview_image_url=url + '/booking-price-room.jpg'
+                        ),
+                        TextMessage(text="📞 0986-040-310\n"
+                                         "✉️ chancevilla262@gmail.com\n"
+                                         "📍 宜蘭縣礁溪鄉武暖路45-5號\n\n"
+                                         "春秧綠、夏荷香、秋稻浪、冬暖陽——四時蒔裳，皆有秝景。🌾\n"
+                                         "歡迎信息我們，預約入住！")
+                    ]
+                )
+            )
+
+        elif data == 'action=whole_house_price':
+            line_bot_api.reply_message(
+                ReplyMessageRequest(
+                    reply_token=event.reply_token,
+                    messages=[
+                        ImageMessage(
+                            original_content_url=url + '/booking-price-whole.jpg',
+                            preview_image_url=url + '/booking-price-whole.jpg'
+                        ),
+                        TextMessage(text="📞 0986-040-310\n"
+                                         "✉️ chancevilla262@gmail.com\n"
+                                         "📍 宜蘭縣礁溪鄉武暖路45-5號\n\n"
+                                         "春秧綠、夏荷香、秋稻浪、冬暖陽——四時蒔裳，皆有秝景。🌾\n"
+                                         "歡迎信息我們，預約入住！")
+                    ]
+                )
+            )
+            
         # ---- 客房導覽 子選項 ----
-        if data == 'action=room_twin':
+        elif data == 'action=room_twin':
             line_bot_api.reply_message(
                 ReplyMessageRequest(
                     reply_token=event.reply_token,

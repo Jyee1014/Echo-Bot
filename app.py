@@ -564,8 +564,8 @@ def handle_postback(event):
                         LocationMessage(
                             title='蒔裳秝景',
                             address="26245宜蘭縣礁溪鄉武暖路45-5號",
-                            latitude=24.781609811337216,
-                            longitude=121.76645135904401
+                            latitude=24.780545531734067,
+                            longitude=121.76656372252091
                         )
                     ]
                 )

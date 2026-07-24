@@ -309,10 +309,6 @@ def handle_postback(event):
                         TextMessage(text="📞 0986-040-310\n"
                                          "✉️ chancevilla262@gmail.com\n"
                                          "📍 宜蘭縣礁溪鄉武暖路45-5號\n\n"
-                                         "蒔光正好宜相聚，\n"
-                                         "裳盡風月與歡語，\n"
-                                         "秝意山水留人住，\n"
-                                         "景致悠然入心居。\n"
                                          "歡迎信息我們，預約入住！")
                     ]
                 )
@@ -330,10 +326,6 @@ def handle_postback(event):
                         TextMessage(text="📞 0986-040-310\n"
                                          "✉️ chancevilla262@gmail.com\n"
                                          "📍 宜蘭縣礁溪鄉武暖路45-5號\n\n"
-                                         "蒔光正好宜相聚，\n"
-                                         "裳盡風月與歡語，\n"
-                                         "秝意山水留人住，\n"
-                                         "景致悠然入心居。\n"
                                          "歡迎信息我們，預約入住！")
                     ]
                 )

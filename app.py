@@ -102,24 +102,28 @@ def create_rich_menu():
             "chatBarText": "導覽",
             "areas": [
                 {
-                    "bounds": {"x": 67, "y": 67, "width": 600, "height": 200},
+                    "bounds": {"x": 53, "y": 77, "width": 715, "height": 690},
                     "action": {"type": "message", "text": "線上訂房"}
                 },
                 {
-                    "bounds": {"x": 1808, "y": 63, "width": 600, "height": 200},
+                    "bounds": {"x": 897, "y": 76, "width": 715, "height": 690},
+                    "action": {"type": "message", "text": "國旅補助"}
+                },
+                {
+                    "bounds": {"x": 1723, "y": 77, "width": 715, "height": 690},
                     "action": {"type": "message", "text": "客房導覽"}
                 },
                 {
-                    "bounds": {"x": 47, "y": 846, "width": 792, "height": 769},
-                    "action": {"type": "message", "text": "餐飲|環境介紹"}
+                    "bounds": {"x": 56, "y": 891, "width": 715, "height": 690},
+                    "action": {"type": "message", "text": "餐飲 | 環境介紹"}
                 },
                 {
-                    "bounds": {"x": 833, "y": 846, "width": 826, "height": 769},
+                    "bounds": {"x": 894, "y": 900, "width": 715, "height": 690},
                     "action": {"type": "message", "text": "入住須知"}
                 },
                 {
-                    "bounds": {"x": 1660, "y": 846, "width": 870, "height": 769},
-                    "action": {"type": "message", "text": "位置|周邊景點"}
+                    "bounds": {"x": 1731, "y": 895, "width": 715, "height": 690},
+                    "action": {"type": "message", "text": "位置 | 周邊景點"}
                 },
             ]
         }
@@ -191,6 +195,22 @@ def handle_message(event):
                 )
             )
 
+        # 國旅補助 完成
+        elif text == '國旅補助':
+            line_bot_api.reply_message(
+                ReplyMessageRequest(
+                    reply_token=event.reply_token,
+                    messages=[
+                        ImageMessage(
+                            original_content_url=url + '/allowance.jpg',
+                            preview_image_url=url + '/allowance.jpg'
+                        ),
+                        TextMessage(text="🔗點擊下方鏈接，即可預定。\n"
+                                        "https://journey.owlting.com/hotels/ee0211ba-78d5-46f9-9013-f74f39c00206")
+                    ]
+                )
+            )
+            
         # 客房導覽 待确认
         elif text == '客房導覽':
             room_tour_template = ImageCarouselTemplate(
@@ -221,7 +241,7 @@ def handle_message(event):
             )
 
         # 餐飲|環境介紹 完成
-        elif text == '餐飲|環境介紹':
+        elif text == '餐飲 | 環境介紹':
             dining_env_template = ImageCarouselTemplate(
                 columns=[
                     ImageCarouselColumn(
@@ -266,8 +286,8 @@ def handle_message(event):
                 )
             )
 
-        # 交通|周邊景點 完成
-        elif text == '位置|周邊景點':
+        # 位置 | 周邊景點 完成
+        elif text == '位置 | 周邊景點':
             location_template = ImageCarouselTemplate(
                 columns=[
                     ImageCarouselColumn(
@@ -309,6 +329,10 @@ def handle_postback(event):
                         TextMessage(text="📞 0986-040-310\n"
                                          "✉️ chancevilla262@gmail.com\n"
                                          "📍 宜蘭縣礁溪鄉武暖路45-5號\n\n"
+                                         "蒔光正好宜相聚，\n"
+                                         "裳盡風月與歡語，\n"
+                                         "秝意山水留人住，\n"
+                                         "景致悠然入心居。\n"
                                          "歡迎信息我們，預約入住！")
                     ]
                 )
@@ -326,6 +350,10 @@ def handle_postback(event):
                         TextMessage(text="📞 0986-040-310\n"
                                          "✉️ chancevilla262@gmail.com\n"
                                          "📍 宜蘭縣礁溪鄉武暖路45-5號\n\n"
+                                         "蒔光正好宜相聚，\n"
+                                         "裳盡風月與歡語，\n"
+                                         "秝意山水留人住，\n"
+                                         "景致悠然入心居。\n"
                                          "歡迎信息我們，預約入住！")
                     ]
                 )
@@ -389,7 +417,7 @@ def handle_postback(event):
                 )
             )
 
-        # ---- 餐飲|環境介紹 子選項 ----
+        # ---- 餐飲 | 環境介紹 子選項 ----
         elif data == 'action=dining':
             dining_carousel_template = ImageCarouselTemplate(
                 columns=[
@@ -553,7 +581,7 @@ def handle_postback(event):
                 )
             )
 
-        # ---- 交通|周邊景點 子選項 ---- 完成
+        # ---- 位置 | 周邊景點 子選項 ---- 完成
         elif data == 'action=location':
             line_bot_api.reply_message(
                 ReplyMessageRequest(

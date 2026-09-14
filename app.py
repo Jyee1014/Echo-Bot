@@ -211,7 +211,7 @@ def handle_message(event):
                     ]
                 )
             )
-            
+
         # 客房導覽 待确认
         elif text == '客房導覽':
             room_tour_template = ImageCarouselTemplate(
@@ -359,19 +359,20 @@ def handle_postback(event):
                     ]
                 )
             )
+
         elif data == 'action=floor_plan':
-        line_bot_api.reply_message(
-            ReplyMessageRequest(
-                reply_token=event.reply_token,
-                messages=[
-                    ImageMessage(
-                        original_content_url=url + '/floor_plan.jpg',
-                        preview_image_url=url + '/floor_plan.jpg'
-                    )
-                ]
+            line_bot_api.reply_message(
+                ReplyMessageRequest(
+                    reply_token=event.reply_token,
+                    messages=[
+                        ImageMessage(
+                            original_content_url=url + '/floor_plan.jpg',
+                            preview_image_url=url + '/floor_plan.jpg'
+                        )
+                    ]
+                )
             )
-        )
-            
+
         # ---- 客房導覽 子選項 ----
         elif data == 'action=room_twin':
             line_bot_api.reply_message(
@@ -459,8 +460,8 @@ def handle_postback(event):
             )
             line_bot_api.reply_message(
                 ReplyMessageRequest(
-                reply_token=event.reply_token,
-                messages=[TemplateMessage(alt_text='餐飲介紹', template=dining_carousel_template)]
+                    reply_token=event.reply_token,
+                    messages=[TemplateMessage(alt_text='餐飲介紹', template=dining_carousel_template)]
                 )
             )
         elif data == 'action=breakfast':
@@ -521,7 +522,7 @@ def handle_postback(event):
                     ]
                 )
             )
-    
+
         elif data == 'action=environment':
             environment_carousel_template = ImageCarouselTemplate(
                 columns=[
@@ -567,7 +568,7 @@ def handle_postback(event):
                     ]
                 )
             )
-        
+
         elif data == 'action=detail-checkin':
             line_bot_api.reply_message(
                 ReplyMessageRequest(
@@ -580,7 +581,7 @@ def handle_postback(event):
                     ]
                 )
             )
-        
+
         elif data == 'action=detail-pets':
             line_bot_api.reply_message(
                 ReplyMessageRequest(
@@ -621,6 +622,7 @@ def handle_postback(event):
                     ]
                 )
             )
+
 
 if __name__ == "__main__":
     app.run()

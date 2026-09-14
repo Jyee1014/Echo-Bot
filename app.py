@@ -186,6 +186,7 @@ def handle_message(event):
                 actions=[
                     PostbackAction(label='單間價格', data='action=room_price'),
                     PostbackAction(label='包棟價格', data='action=whole_house_price'),
+                    PostbackAction(label='房間平面圖', data='action=floor_plan'),
                 ]
             )
             line_bot_api.reply_message(
@@ -355,6 +356,18 @@ def handle_postback(event):
                                          "秝意山水留人住，\n"
                                          "景致悠然入心居。\n"
                                          "歡迎信息我們，預約入住！")
+                    ]
+                )
+            )
+            elif data == 'action=floor_plan':
+            line_bot_api.reply_message(
+                ReplyMessageRequest(
+                    reply_token=event.reply_token,
+                    messages=[
+                        ImageMessage(
+                            original_content_url=url + '/floor_plan.jpg',
+                            preview_image_url=url + '/floor_plan.jpg'
+                        )
                     ]
                 )
             )

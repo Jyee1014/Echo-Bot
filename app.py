@@ -359,18 +359,18 @@ def handle_postback(event):
                     ]
                 )
             )
-            elif data == 'action=floor_plan':
-            line_bot_api.reply_message(
-                ReplyMessageRequest(
-                    reply_token=event.reply_token,
-                    messages=[
-                        ImageMessage(
-                            original_content_url=url + '/floor_plan.jpg',
-                            preview_image_url=url + '/floor_plan.jpg'
-                        )
-                    ]
-                )
+        elif data == 'action=floor_plan':
+        line_bot_api.reply_message(
+            ReplyMessageRequest(
+                reply_token=event.reply_token,
+                messages=[
+                    ImageMessage(
+                        original_content_url=url + '/floor_plan.jpg',
+                        preview_image_url=url + '/floor_plan.jpg'
+                    )
+                ]
             )
+        )
             
         # ---- 客房導覽 子選項 ----
         elif data == 'action=room_twin':

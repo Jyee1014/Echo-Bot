@@ -455,6 +455,13 @@ def handle_postback(event):
                             label='火焰夯鴨',
                             data='action=flameduck',
                             display_text='火焰夯鴨')
+                    ),
+                    ImageCarouselColumn(
+                        image_url=url + '/bbqboy-logo.jpg',
+                        action=PostbackAction(
+                        label='肉慾少年',
+                        data='action=bbqboy',
+                        display_text='肉慾少年')
                     )
                 ]
             )
@@ -494,10 +501,11 @@ def handle_postback(event):
                             preview_image_url=url + '/detail-8bq-2.jpg'
                         ),
                         TextMessage(text="🍖 烤友社｜代訂食材服務"
-                                          "\n\n想輕鬆享受烤肉時光嗎？\n如需代訂烤肉食材，請於入住前 7 天與客服聯繫並完成預訂。"
-                                          "\n\n🔥 烤肉設備\n提供 1 台美式烤肉架\n僅提供烤肉盤，其餘耗材（如木炭、夾子、烤網、鋁箔紙、紙盤、餐具等）請自行準備。\n若使用代訂食材服務，代訂廠商將提供基本耗材\n使用烤肉場地將酌收 清潔費 NT$2,000。"
-                                          "\n\n🍲 火鍋設備\n交誼廳提供 瓦斯爐供使用。\n使用火鍋設備不另收清潔費。"
-                                          "\n\n💬 如有任何疑問或代訂需求，歡迎提前與客服聯繫，我們將竭誠為您服務！"
+                                    "\n\n想輕鬆享受烤肉時光嗎？\n如有烤肉食材代訂需求，請於入住前 7 天聯繫客服並完成預訂，以便提前安排。"
+                                    "\n\n🔥 烤肉設備\n提供 1 台美式烤肉架，現場僅提供烤肉盤，其餘耗材（如木炭、夾子、烤網、鋁箔紙、紙盤、餐具等）請旅客自行準備。\n若透過代訂食材服務，代訂廠商將另行提供基本耗材。\n使用烤肉場地將酌收清潔費 NT$2,000。"
+                                    "\n\n🍲 火鍋設備\n交誼廳提供瓦斯爐供旅客使用。\n使用火鍋設備不另收清潔費。"
+                                    "\n\n📌 溫馨提醒\n本服務僅提供烤肉食材代訂，並非代客烤肉服務。現場僅提供部分基本設備及用品，烤肉所需其他用品請自行準備，烤肉過程亦由旅客自行料理，敬請見諒。"
+                                    "\n\n💬 如有任何疑問或代訂需求，歡迎提前與客服聯繫，我們將竭誠為您服務！"
                         )
                     ]
                 )
@@ -518,7 +526,32 @@ def handle_postback(event):
                         ImageMessage(
                             original_content_url=url + '/detail-flameduck-3.jpg',
                             preview_image_url=url + '/detail-flameduck-3.jpg'
-                        ),
+                        ),                        
+                        TextMessage(text="🔥 火焰夯鴨｜專人到府燒烤服務"
+                                    "\n\n想享受美味燒烤，又不想自己動手準備嗎？\n推薦您體驗火焰夯鴨燒烤服務，讓您輕鬆享受美食與歡樂時光！"
+                                    "\n\n🍖 專人現場燒烤\n由專業人員攜帶新鮮食材及燒烤設備到場，現場為旅客烹調各式美味燒烤料理，從食材準備到燒烤料理，都由專人為您服務。"
+                                    "\n\n🥩 多樣化餐點選擇\n提供多種燒烤套餐及單點品項，包含肉類、海鮮、蔬菜及特色料理，可依照人數與喜好選擇適合的套餐。"
+                                    "\n\n📌 預訂提醒\n如有預訂需求，請提前與客服聯繫確認餐點內容、供應人數及服務安排，實際餐點依所選套餐為準。"
+                                    "\n\n💬 如有任何疑問或預訂需求，歡迎提前與客服聯繫，我們將竭誠為您服務！"
+                        )
+                    ]
+                )
+            )
+        elif data == 'action=bbqboy':
+            line_bot_api.reply_message(
+                ReplyMessageRequest(
+                    reply_token=event.reply_token,
+                    messages=[
+                        ImageMessage(
+                            original_content_url=url + '/detail-bbqboy.jpg',
+                            preview_image_url=url + '/detail-bbqboy.jpg'
+                        ),                  
+                        TextMessage(text="🔥 肉慾少年｜專人現場燒烤"
+                                    "\n\n想享受豐盛的燒烤饗宴嗎？肉慾少年提供專人到場燒烤服務，嚴選新鮮肉品、海鮮及蔬菜，現場為您料理，讓您免去準備與烹調的麻煩，輕鬆享受美食！"
+                                    "\n\n🥩 包含精選肉品、海鮮、炭烤料理、新鮮蔬菜及特色配菜，豐富多樣，一次滿足味蕾！"
+                                    "\n\n📌 溫馨提醒\n菜單內容可微調，價格已含食材、代烤師傅、免洗餐具及烤肉設備。現場服務時間約 3～3.5 小時，自備食材另收代烤費用。"
+                                    "\n\n💬 如有預訂需求，歡迎提前與客服聯繫確認，我們將協助您安排！"
+                        )
                     ]
                 )
             )
